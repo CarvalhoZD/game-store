@@ -1,6 +1,7 @@
 import { IsNotEmpty } from "class-validator"
 import { Categoria } from "src/categoria/entities/categoria.entity"
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Usuario } from "src/usuario/entities/usuario.entity"
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
 
 
 
@@ -14,9 +15,17 @@ export class Produto {
     @Column({length: 255, nullable: false})
     nome: string
 
+    @UpdateDateColumn()
+    data: Date
+
     @ManyToOne(() => Categoria, (categoria) => categoria.produto, {
         onDelete: "CASCADE"
     })
     categoria: Categoria
-
+    
+    @ManyToOne(() => Usuario, (usuario) => usuario.produto, {
+        onDelete: "CASCADE"
+    })
+    
+    usuario: Usuario
 }
